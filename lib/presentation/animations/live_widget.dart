@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 
-class Shake extends StatefulWidget {
-  const Shake({super.key, required this.child});
+class LiveWidget extends StatefulWidget {
+  const LiveWidget({super.key, required this.child});
 
   final Widget child;
 
   @override
-  State<Shake> createState() => _ShakeState();
+  State<LiveWidget> createState() => _LiveWidgetState();
 }
 
-class _ShakeState extends State<Shake> with SingleTickerProviderStateMixin {
+class _LiveWidgetState extends State<LiveWidget>
+    with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
 
   @override
@@ -26,7 +27,7 @@ class _ShakeState extends State<Shake> with SingleTickerProviderStateMixin {
     super.dispose();
   }
 
-  double shake(double value) =>
+  double liveWidget(double value) =>
       2 * (0.5 - (0.5 - Curves.easeInOut.transform(value)).abs());
 
   @override
@@ -35,7 +36,7 @@ class _ShakeState extends State<Shake> with SingleTickerProviderStateMixin {
       animation: _animationController,
       builder: (context, child) {
         return Transform.translate(
-          offset: Offset(0, 8 * shake(_animationController.value)),
+          offset: Offset(0, 8 * liveWidget(_animationController.value)),
           child: widget.child,
         );
       },

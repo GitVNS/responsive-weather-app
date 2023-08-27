@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:open_weather/interface/theme/theme_colors.dart';
+import 'package:open_weather/core/theme/theme_colors.dart';
 
 class AppTheme {
   static ThemeData darkTheme = ThemeData(
@@ -19,6 +19,7 @@ class AppTheme {
         displayLarge: TextStyle(color: ThemeColors.textLight),
         headlineLarge: TextStyle(color: ThemeColors.textLight),
         titleLarge: TextStyle(color: ThemeColors.textLight),
+        titleMedium: TextStyle(color: ThemeColors.textLight),
         labelLarge: TextStyle(color: ThemeColors.textLight),
         bodyLarge: TextStyle(color: ThemeColors.textLight),
         bodyMedium: TextStyle(color: ThemeColors.textLight),

@@ -7,13 +7,13 @@ class NumberSwitcher extends StatefulWidget {
       required this.end,
       required this.duration,
       this.appendText = '',
-      required this.textStyle});
+      this.textStyle});
 
   final double start;
   final double end;
   final Duration duration;
   final String appendText;
-  final TextStyle textStyle;
+  final TextStyle? textStyle;
 
   @override
   State<NumberSwitcher> createState() => _NumberSwitcherState();
