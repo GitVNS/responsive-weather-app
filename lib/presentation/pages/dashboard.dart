@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:open_weather/data/locations.dart';
 import 'package:open_weather/presentation/layouts/dashboard/m_dashboard.dart';
+import 'package:open_weather/presentation/layouts/dashboard/t_dashboard.dart';
 import 'package:open_weather/presentation/responsive_container.dart';
 
 class Dashboard extends StatefulWidget {
@@ -12,8 +14,6 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
   final pageController = PageController(viewportFraction: 0.33);
   int pageIndex = 0;
-  List<String> locations = ["Mumbai", "Banglore", "Hydrabad", "Delhi", "Pune"];
-  List<double> temperatures = [32, 41, 25, 33, 21];
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class _DashboardState extends State<Dashboard> {
       body: SafeArea(
         child: ResponsiveContainer(
           mobile: const MDashboard(),
-          tablet: Container(),
+          tablet: const TDashboard(),
           desktop: Container(),
         ),
       ),

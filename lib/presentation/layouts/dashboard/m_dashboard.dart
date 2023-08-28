@@ -96,15 +96,15 @@ class _MDashboardState extends State<MDashboard> {
         children: [
           Column(
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 80,
                 width: double.infinity,
-                child: const LiveWidget(
+                child: LiveWidget(
                   child: Image(
                     image: AssetImage("assets/images/04d.png"),
                     fit: BoxFit.contain,
                   ),
-                ).expanded(),
+                ),
               ),
               Text(
                 "Moderate\nRain",
