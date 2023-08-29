@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:open_weather/core/theme/theme_colors.dart';
 import 'package:open_weather/core/utils/extensions.dart';
 import 'package:open_weather/core/utils/gutter_space.dart';
@@ -17,7 +16,7 @@ ListView buildMainLayout({required BuildContext context}) {
       ClipPath(
           clipper: WaveClipper(), child: buildMainContainer(context: context)),
       gutterSpace(vertical: 16),
-      buildCelciusFarenheitCard(degree: "31", context: context),
+      buildFeelsLikeCard(degree: "31", context: context),
       temperatureCard(context: context),
       tempConversionCard(context: context),
       windCard(context: context),
@@ -99,114 +98,37 @@ Container buildMainContainer({required BuildContext context}) {
   );
 }
 
-Card buildCelciusFarenheitCard(
+Card buildFeelsLikeCard(
     {required String degree, required BuildContext context}) {
   TextTheme textTheme = Theme.of(context).textTheme;
   return Card(
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
     margin: const EdgeInsets.symmetric(horizontal: 16),
-    child: IntrinsicHeight(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Text("$degree° Celcius",
-              overflow: TextOverflow.ellipsis, style: textTheme.bodyLarge),
-          const VerticalDivider(color: ThemeColors.highlight, thickness: 1),
-          Text("$degree° Fahrenheit",
-              overflow: TextOverflow.ellipsis, style: textTheme.bodyLarge),
-        ],
-      ),
-    ).symetricPadding(vertical: 16),
+    child: Text("Feels like $degree° Celcius",
+            textAlign: TextAlign.center,
+            overflow: TextOverflow.ellipsis,
+            style: textTheme.bodyLarge)
+        .symetricPadding(horizontal: 16, vertical: 16),
   );
 }
 
 Widget temperatureCard({required BuildContext context}) {
   return cardWithTitle(
       title: "Temperature",
-      child: IntrinsicHeight(
-        child: Row(
-          children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SvgPicture.asset(
-                  "assets/icons/temperature.svg",
-                  height: 40,
-                  width: 40,
-                  colorFilter: const ColorFilter.mode(
-                      ThemeColors.onBackground, BlendMode.srcATop),
-                ),
-                gutterSpace(vertical: 4),
-                Text("Normal",
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.bodyMedium),
-                Text("298.48",
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyLarge!
-                        .copyWith(color: ThemeColors.highlight)),
-              ],
-            ).expanded(),
-            const VerticalDivider(
-                color: ThemeColors.onBackground,
-                thickness: 1,
-                width: 2,
-                indent: 40,
-                endIndent: 40),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SvgPicture.asset(
-                  "assets/icons/temp_minimum.svg",
-                  height: 40,
-                  width: 40,
-                  colorFilter: const ColorFilter.mode(
-                      ThemeColors.onBackground, BlendMode.srcATop),
-                ),
-                gutterSpace(vertical: 4),
-                Text("Minimum",
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.bodyMedium),
-                Text("298.48",
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyLarge!
-                        .copyWith(color: ThemeColors.highlight)),
-              ],
-            ).expanded(),
-            const VerticalDivider(
-                color: ThemeColors.onBackground,
-                thickness: 1,
-                width: 2,
-                indent: 40,
-                endIndent: 40),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SvgPicture.asset(
-                  "assets/icons/temp_maximum.svg",
-                  height: 40,
-                  width: 40,
-                  colorFilter: const ColorFilter.mode(
-                      ThemeColors.onBackground, BlendMode.srcATop),
-                ),
-                gutterSpace(vertical: 4),
-                Text("Maximum",
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.bodyMedium),
-                Text("298.48",
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyLarge!
-                        .copyWith(color: ThemeColors.highlight)),
-              ],
-            ).expanded(),
-          ],
-        ),
-      ),
+      items: [
+        CardWithTitleItem(
+            label: "Normal",
+            icon: "assets/icons/temperature.svg",
+            info: "298.48"),
+        CardWithTitleItem(
+            label: "Minimum",
+            icon: "assets/icons/temp_minimum.svg",
+            info: "298.48"),
+        CardWithTitleItem(
+            label: "Maximum",
+            icon: "assets/icons/temp_maximum.svg",
+            info: "298.48"),
+      ],
       context: context);
 }
 
@@ -214,180 +136,30 @@ Widget tempConversionCard({required BuildContext context}) {
   return cardWithTitle(
       alignRight: true,
       title: "Conversion",
-      child: IntrinsicHeight(
-        child: Row(
-          children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SvgPicture.asset(
-                  "assets/icons/celcius.svg",
-                  height: 40,
-                  width: 40,
-                  colorFilter: const ColorFilter.mode(
-                      ThemeColors.onBackground, BlendMode.srcATop),
-                ),
-                gutterSpace(vertical: 4),
-                Text("Celcius",
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.bodyMedium),
-                Text("298.48",
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyLarge!
-                        .copyWith(color: ThemeColors.highlight)),
-              ],
-            ).expanded(),
-            const VerticalDivider(
-                color: ThemeColors.onBackground,
-                thickness: 1,
-                width: 2,
-                indent: 40,
-                endIndent: 40),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SvgPicture.asset(
-                  "assets/icons/fahrenheit.svg",
-                  height: 40,
-                  width: 40,
-                  colorFilter: const ColorFilter.mode(
-                      ThemeColors.onBackground, BlendMode.srcATop),
-                ),
-                gutterSpace(vertical: 4),
-                Text("Fahrenheit",
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.bodyMedium),
-                Text("298.48",
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyLarge!
-                        .copyWith(color: ThemeColors.highlight)),
-              ],
-            ).expanded(),
-            const VerticalDivider(
-                color: ThemeColors.onBackground,
-                thickness: 1,
-                width: 2,
-                indent: 40,
-                endIndent: 40),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SvgPicture.asset(
-                  "assets/icons/kelvin.svg",
-                  height: 40,
-                  width: 40,
-                  colorFilter: const ColorFilter.mode(
-                      ThemeColors.onBackground, BlendMode.srcATop),
-                ),
-                gutterSpace(vertical: 4),
-                Text("Kelvin",
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.bodyMedium),
-                Text("298.48",
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyLarge!
-                        .copyWith(color: ThemeColors.highlight)),
-              ],
-            ).expanded(),
-          ],
-        ),
-      ),
+      items: [
+        CardWithTitleItem(
+            label: "Celcius", icon: "assets/icons/celcius.svg", info: "31"),
+        CardWithTitleItem(
+            label: "Fahrenheit",
+            icon: "assets/icons/fahrenheit.svg",
+            info: "38"),
+        CardWithTitleItem(
+            label: "Kelvin", icon: "assets/icons/kelvin.svg", info: "27"),
+      ],
       context: context);
 }
 
 Widget windCard({required BuildContext context}) {
   return cardWithTitle(
       title: "Wind",
-      child: IntrinsicHeight(
-        child: Row(
-          children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SvgPicture.asset(
-                  "assets/icons/speed.svg",
-                  height: 40,
-                  width: 40,
-                  colorFilter: const ColorFilter.mode(
-                      ThemeColors.onBackground, BlendMode.srcATop),
-                ),
-                gutterSpace(vertical: 4),
-                Text("Speed",
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.bodyMedium),
-                Text("0.62",
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyLarge!
-                        .copyWith(color: ThemeColors.highlight)),
-              ],
-            ).expanded(),
-            const VerticalDivider(
-                color: ThemeColors.onBackground,
-                thickness: 1,
-                width: 2,
-                indent: 40,
-                endIndent: 40),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SvgPicture.asset(
-                  "assets/icons/gust.svg",
-                  height: 40,
-                  width: 40,
-                  colorFilter: const ColorFilter.mode(
-                      ThemeColors.onBackground, BlendMode.srcATop),
-                ),
-                gutterSpace(vertical: 4),
-                Text("Gust",
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.bodyMedium),
-                Text("1.18",
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyLarge!
-                        .copyWith(color: ThemeColors.highlight)),
-              ],
-            ).expanded(),
-            const VerticalDivider(
-                color: ThemeColors.onBackground,
-                thickness: 1,
-                width: 2,
-                indent: 40,
-                endIndent: 40),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SvgPicture.asset(
-                  "assets/icons/degree.svg",
-                  height: 40,
-                  width: 40,
-                  colorFilter: const ColorFilter.mode(
-                      ThemeColors.onBackground, BlendMode.srcATop),
-                ),
-                gutterSpace(vertical: 4),
-                Text("Degree",
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.bodyMedium),
-                Text("349",
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyLarge!
-                        .copyWith(color: ThemeColors.highlight)),
-              ],
-            ).expanded(),
-          ],
-        ),
-      ),
+      items: [
+        CardWithTitleItem(
+            label: "Speed", icon: "assets/icons/speed.svg", info: "0.62 Km/hr"),
+        CardWithTitleItem(
+            label: "Gust", icon: "assets/icons/gust.svg", info: "1.18"),
+        CardWithTitleItem(
+            label: "Degree", icon: "assets/icons/degree.svg", info: "349"),
+      ],
       context: context);
 }
 
@@ -395,89 +167,15 @@ Widget humidityCard({required BuildContext context}) {
   return cardWithTitle(
       title: "More",
       alignRight: true,
-      child: IntrinsicHeight(
-        child: Row(
-          children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SvgPicture.asset(
-                  "assets/icons/humidity.svg",
-                  height: 40,
-                  width: 40,
-                  colorFilter: const ColorFilter.mode(
-                      ThemeColors.onBackground, BlendMode.srcATop),
-                ),
-                gutterSpace(vertical: 4),
-                Text("Humidity",
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.bodyMedium),
-                Text("64",
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyLarge!
-                        .copyWith(color: ThemeColors.highlight)),
-              ],
-            ).expanded(),
-            const VerticalDivider(
-                color: ThemeColors.onBackground,
-                thickness: 1,
-                width: 2,
-                indent: 40,
-                endIndent: 40),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SvgPicture.asset(
-                  "assets/icons/sea.svg",
-                  height: 40,
-                  width: 40,
-                  colorFilter: const ColorFilter.mode(
-                      ThemeColors.onBackground, BlendMode.srcATop),
-                ),
-                gutterSpace(vertical: 4),
-                Text("Sea Level",
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.bodyMedium),
-                Text("1015",
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyLarge!
-                        .copyWith(color: ThemeColors.highlight)),
-              ],
-            ).expanded(),
-            const VerticalDivider(
-                color: ThemeColors.onBackground,
-                thickness: 1,
-                width: 2,
-                indent: 40,
-                endIndent: 40),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SvgPicture.asset(
-                  "assets/icons/ground.svg",
-                  height: 40,
-                  width: 40,
-                  colorFilter: const ColorFilter.mode(
-                      ThemeColors.onBackground, BlendMode.srcATop),
-                ),
-                gutterSpace(vertical: 4),
-                Text("Ground Level",
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.bodyMedium),
-                Text("933",
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyLarge!
-                        .copyWith(color: ThemeColors.highlight)),
-              ],
-            ).expanded(),
-          ],
-        ),
-      ),
+      items: [
+        CardWithTitleItem(
+            label: "Humidity", icon: "assets/icons/humidity.svg", info: "64"),
+        CardWithTitleItem(
+            label: "Sea Level", icon: "assets/icons/sea.svg", info: "1015"),
+        CardWithTitleItem(
+            label: "Ground Level",
+            icon: "assets/icons/ground.svg",
+            info: "933"),
+      ],
       context: context);
 }

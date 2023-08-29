@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:open_weather/data/locations.dart';
+import 'package:open_weather/presentation/layouts/dashboard/d_dashboard.dart';
 import 'package:open_weather/presentation/layouts/dashboard/m_dashboard.dart';
 import 'package:open_weather/presentation/layouts/dashboard/t_dashboard.dart';
 import 'package:open_weather/presentation/responsive_container.dart';
@@ -28,11 +29,11 @@ class _DashboardState extends State<Dashboard> {
       bottomNavigationBar: ResponsiveContainer.isMobile(context)
           ? buildBottomSwipeNavigation()
           : null,
-      body: SafeArea(
+      body: const SafeArea(
         child: ResponsiveContainer(
-          mobile: const MDashboard(),
-          tablet: const TDashboard(),
-          desktop: Container(),
+          mobile: MDashboard(),
+          tablet: TDashboard(),
+          desktop: DDashboard(),
         ),
       ),
     );
