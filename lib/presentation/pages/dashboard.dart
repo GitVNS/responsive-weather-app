@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:open_weather/core/utils/extensions.dart';
 import 'package:open_weather/data/locations.dart';
+import 'package:open_weather/presentation/components/dashboard_components.dart';
+import 'package:open_weather/presentation/components/shared/locations_side_bar.dart';
 import 'package:open_weather/presentation/layouts/dashboard/d_dashboard.dart';
-import 'package:open_weather/presentation/layouts/dashboard/m_dashboard.dart';
-import 'package:open_weather/presentation/layouts/dashboard/t_dashboard.dart';
 import 'package:open_weather/presentation/responsive_container.dart';
 
 class Dashboard extends StatefulWidget {
@@ -29,11 +30,18 @@ class _DashboardState extends State<Dashboard> {
       bottomNavigationBar: ResponsiveContainer.isMobile(context)
           ? buildBottomSwipeNavigation()
           : null,
-      body: const SafeArea(
+      body: SafeArea(
         child: ResponsiveContainer(
-          mobile: MDashboard(),
-          tablet: TDashboard(),
-          desktop: DDashboard(),
+          mobile: buildMainLayout(context: context),
+          tablet: Row(
+            children: [
+              locationsSideBar(context: context),
+              Container(
+                child: buildMainLayout(context: context),
+              ).expanded(),
+            ],
+          ),
+          desktop: dDashboard(context: context),
         ),
       ),
     );
