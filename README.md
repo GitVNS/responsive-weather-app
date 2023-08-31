@@ -1,6 +1,6 @@
 # Responsive
 
-A responsive Weather app design in Flutter ffor Mobile, Tablet and Desktop.
+A responsive Weather app design in Flutter for Mobile, Tablet and Desktop.
 
 ## Samples
 
